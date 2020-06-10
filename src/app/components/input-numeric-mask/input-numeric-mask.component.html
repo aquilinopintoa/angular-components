@@ -1,9 +1,14 @@
 <div class="input-numeric-mask">
-  <input *ngFor="let inputMetadata of inputsMetadata"
+  <input #input *ngFor="let inputMetadata of inputsMetadata"
          [type]="hideValue ? 'password' : 'numeric'"
          maxlength="1"
          [disabled]="inputMetadata.disabled"
          [placeholder]="inputMetadata.disabled ? '•' : '_'"
+         (input)="setValue(inputMetadata.position, $event.target)"
+         (keydown)="handlerKeyup(inputMetadata.position, $event)"
   >
   <button (click)="hideValue=!hideValue">{{hideValue ? 'Show' : 'Hide'}}</button>
+</div>
+<div class="input-numeric-mask__value">
+  {{value | json}}
 </div>
