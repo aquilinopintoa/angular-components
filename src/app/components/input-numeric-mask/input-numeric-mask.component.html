@@ -1,0 +1,9 @@
+<div class="input-numeric-mask">
+  <input *ngFor="let inputMetadata of inputsMetadata"
+         [type]="hideValue ? 'password' : 'numeric'"
+         maxlength="1"
+         [disabled]="inputMetadata.disabled"
+         [placeholder]="inputMetadata.disabled ? '•' : '_'"
+  >
+  <button (click)="hideValue=!hideValue">{{hideValue ? 'Show' : 'Hide'}}</button>
+</div>

@@ -1,0 +1,17 @@
+:host {
+  .input-numeric-mask {
+    display: flex;
+
+    input {
+      border: none;
+      outline: none;
+      width: 20px;
+      margin: 0 8px;
+      text-align: center;
+
+      &:disabled {
+        background-color: white;
+      }
+    }
+  }
+}
