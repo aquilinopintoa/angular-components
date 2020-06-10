@@ -91,8 +91,7 @@ export class InputNumericMaskComponent implements OnInit {
     let newIndex = this._positionsNumber - 1;
 
     for (let i = currentIndex + 1 ; i < this._positionsNumber; i++) {
-      const previousValue = this.inputsMetadata[i].value;
-      if (!this._disabledPositions.includes(i) && previousValue === null) {
+      if (!this._disabledPositions.includes(i)) {
         newIndex = i;
         break;
       }
