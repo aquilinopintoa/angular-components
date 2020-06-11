@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 
 interface InputMetadata {
   value: number;
@@ -56,14 +56,10 @@ export class InputNumericMaskComponent implements OnInit {
     }
   }
 
-  handlerKeyup(index: number, keyEvent: KeyboardEvent) {
-    switch (keyEvent.code) {
-      case 'Backspace':
-        if (!this.inputsMetadata[index].value) {
-          this._focusOnLeftInput(index);
-        }
-        break;
-      default:
+
+  handlerKeyup(index: number) {
+    if (!this.inputsMetadata[index].value) {
+      this._focusOnLeftInput(index);
     }
   }
 
@@ -103,7 +99,7 @@ export class InputNumericMaskComponent implements OnInit {
   private _nextLeftValidInput(currentIndex: number): number {
     let newIndex = currentIndex;
 
-    for (let i = newIndex - 1; i > 0; i--) {
+    for (let i = newIndex - 1; i >= 0; i--) {
       if (!this._disabledPositions.includes(i)) {
         newIndex = i;
         break;
