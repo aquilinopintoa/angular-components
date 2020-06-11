@@ -1,7 +1,7 @@
 import {Component, ElementRef, HostListener, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 
 interface InputMetadata {
-  value: number;
+  value: string;
   position: number;
   disabled: boolean;
 }
@@ -42,16 +42,12 @@ export class InputNumericMaskComponent implements OnInit {
       };
 
       this.inputsMetadata.push(metadata);
+      this.value.push(null);
     }
   }
 
-  setValue(index: number, event: EventTarget): void {
-    const value = (event as HTMLInputElement).value;
-    this.inputsMetadata[index].value = value ? parseInt(value, 10) : null;
-    // emit valueChange to value control accessor interface
-    this.value = this.inputsMetadata.map((input) => input.value);
-
-    if (value) {
+  setValue(index: number, value): void {
+    if (Number(value)) {
       this._focusOnNextInput(index);
     }
   }

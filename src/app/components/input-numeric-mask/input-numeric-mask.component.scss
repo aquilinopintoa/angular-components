@@ -21,8 +21,16 @@
         height: 30px;
         font-size: 16px;
 
+        -moz-appearance: textfield;
+
         &:disabled {
           background-color: white;
+        }
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
         }
       }
     }

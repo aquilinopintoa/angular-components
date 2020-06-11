@@ -4,14 +4,21 @@
     <ng-content select="*[slot=labelSuffix]"></ng-content>
   </div>
   <div class="input-numeric-mask__input-wrapper">
-    <input #input *ngFor="let inputMetadata of inputsMetadata"
-           [type]="hideValue ? 'password' : 'numeric'"
+    <input #input *ngFor="let inputMetadata of inputsMetadata; let i = index"
+           [type]="hideValue ? 'password' : 'text'"
            maxlength="1"
+           pattern="[0-9]*"
+           inputmode="numeric"
+           [(ngModel)]="inputMetadata.value"
            [disabled]="inputMetadata.disabled"
            [placeholder]="inputMetadata.disabled ? '•' : '_'"
-           (input)="setValue(inputMetadata.position, $event.target)"
-           (keydown.backspace)="handlerKeyup(inputMetadata.position)"
+           (ngModelChange)="setValue(i, $event)"
+           (keydown.backspace)="handlerKeyup(i)"
     >
     <button (click)="hideValue=!hideValue">{{hideValue ? 'Show' : 'Hide'}}</button>
   </div>
+</div>
+
+<div>
+  {{inputsMetadata | json}}
 </div>
