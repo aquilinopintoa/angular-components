@@ -5,16 +5,20 @@
   </div>
   <div class="input-numeric-mask__input-wrapper">
     <input #input *ngFor="let inputMetadata of inputsMetadata; let i = index"
-           [type]="hideValue ? 'password' : 'text'"
+           type="text"
+           size="1"
            maxlength="1"
            pattern="[0-9]*"
            inputmode="numeric"
-           [(ngModel)]="inputMetadata.value"
+           [(ngModel)]="inputMetadata.label"
            [disabled]="inputMetadata.disabled"
            [placeholder]="inputMetadata.disabled ? '•' : '_'"
            (ngModelChange)="setValue(i, $event)"
            (keydown.backspace)="handlerKeyup(i)"
     >
-    <button (click)="hideValue=!hideValue">{{hideValue ? 'Show' : 'Hide'}}</button>
+    <button (click)="handlerToggleShow()">{{hideValue ? 'Show' : 'Hide'}}</button>
+  </div>
+  <div>
+    {{inputsMetadata | json}}
   </div>
 </div>

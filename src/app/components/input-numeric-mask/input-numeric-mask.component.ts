@@ -1,7 +1,8 @@
 import {Component, ElementRef, HostListener, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 
-interface InputMetadata {
+export interface InputMetadata {
   value: string;
+  label: string;
   position: number;
   disabled: boolean;
 }
@@ -13,7 +14,7 @@ interface InputMetadata {
 })
 export class InputNumericMaskComponent implements OnInit {
   public value = [];
-  public hideValue = false;
+  public hideValue = true;
   public inputsMetadata: InputMetadata[] = [];
   private _positionsNumber = 0;
   private _disabledPositions: number[] = [];
@@ -38,6 +39,7 @@ export class InputNumericMaskComponent implements OnInit {
       const metadata: InputMetadata = {
         disabled: this._disabledPositions.includes(i),
         value: null,
+        label: '',
         position: i
       };
 
@@ -47,7 +49,15 @@ export class InputNumericMaskComponent implements OnInit {
   }
 
   setValue(index: number, value): void {
-    if (Number(value)) {
+    this.inputsMetadata[index].value = value;
+
+    if (this.hideValue) {
+      setTimeout(() => {
+        this.inputsMetadata[index].label = value ? '•' : '';
+      });
+    }
+
+    if (value) {
       this._focusOnNextInput(index);
     }
   }
@@ -103,5 +113,19 @@ export class InputNumericMaskComponent implements OnInit {
     }
 
     return newIndex;
+  }
+
+  handlerToggleShow() {
+    this.hideValue = !this.hideValue;
+
+    if (this.hideValue) {
+      this.inputsMetadata.forEach((inputMetadata) => {
+        inputMetadata.label = inputMetadata.value ? '•' : '';
+      });
+    } else {
+      this.inputsMetadata.forEach((inputMetadata) => {
+        inputMetadata.label = inputMetadata.value;
+      });
+    }
   }
 }
