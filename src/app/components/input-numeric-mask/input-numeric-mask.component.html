@@ -15,6 +15,7 @@
            [placeholder]="inputMetadata.disabled ? '•' : '_'"
            (ngModelChange)="setValue(i, $event)"
            (keydown.backspace)="handlerKeyup(i)"
+           (click)="handlerFocusIn($event)"
     >
     <button (click)="handlerToggleShow()">{{hideValue ? 'Show' : 'Hide'}}</button>
   </div>

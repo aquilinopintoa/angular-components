@@ -128,4 +128,13 @@ export class InputNumericMaskComponent implements OnInit {
       });
     }
   }
+
+  handlerFocusIn(event) {
+    const target = event.target;
+    const len = target.value.length * 2;
+
+    setTimeout(() => {
+      target.setSelectionRange(len, len);
+    }, 1);
+  }
 }
